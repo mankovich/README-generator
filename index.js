@@ -3,7 +3,7 @@ const inquirer = require('inquirer');
 const colors = require('colors');
 const readmeGen = require('./utils/generateMarkdown.js')
 
-// TODO: Create an array of questions for user input
+// Questions inquirer will prompt the user to answer for README content
 const questions = [
     'Please supply your GitHub username:',
     'and email address:',
@@ -16,20 +16,24 @@ const questions = [
     'Tests?'
 ];
 
+/* define array of available license choices */
 const licenses = [
     'MIT',
     'BSD 3-Clause',
     'GNU GPL v3',
+    'CC0',
+    'Apache 2.0',
+    'WTFPL',
     'No license'
 ]
 
 // writing data to README.md ... parameter: data: a string containing all content from generateMarkdown.js
 function writeToFile(data) {
-    fs.writeFile('./md/README.md', readmeGen.generateMarkdown(data), (err) =>
-    err ? console.log(err) : console.log(color.neonGreen('\nFind the generated README in md folder')))
+    fs.writeFile('./markdown/README.md', readmeGen.generateMarkdown(data), (err) =>
+    err ? console.log(err) : console.log(color.neonGreen('\nFind the generated README.md in the markdown folder')))
 }
 
-// TODO: Create a function to initialize app
+/* inquirer prompt questions for contents of README (I don't know why or how this comment became highlighted, but I can't figure out how to undo it and it's driving me crazy...)*/
 function getUserInfo() {
     inquirer.prompt([
         {
@@ -63,9 +67,11 @@ function getUserInfo() {
             name: 'usage'
         },
         {
-            type: 'input',
+            type: 'list',
             message: colors.bgBrightYellow(questions[6]),
-            name: 'license'
+            name: 'license',
+            choices: [licenses]
+                /*FIXME:'MIT', 'BSD 3-Clause', 'GNU GPL v3', 'CC0', 'No license'*/
         },
         {
             type: 'input',
@@ -86,6 +92,7 @@ function getUserInfo() {
 // Function call to initialize app
 getUserInfo();
 
+//export getUserInfo() for data to be available to be passed into markdown generating functions
 module.exports = {
     getUserInfo
 }
