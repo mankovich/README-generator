@@ -1,4 +1,5 @@
-const data = require('./README-generator/index.js')
+const data = require('C:/Users/jpman/code/README-generator/index.js')
+
 // TODO: Create a function that returns a license badge based on which license is passed in
 // If there is no license, return an empty string
 function renderLicenseBadge(license) {
@@ -55,7 +56,7 @@ function renderLicenseLink(license) {
 // TODO: Create a function that returns the license section of README
 // If there is no license, return an empty string
 function renderLicenseSection(license, licenseBadge, licenseLink) {
-  const {license} = data
+  // const {license} = data
 
   renderLicenseLink(license, licenseLink);
   renderLicenseBadge(license, licenseBadge);
@@ -75,7 +76,7 @@ function renderSection(sectionTitle, content) {
 }
 
 function renderQuestionsSection(username, email) {
-  const {username, email} = data.email
+  // const {username, email} = data
 
   return `\n\n##Questions\n` + 
   `My GitHub username is ${username}, and you may access my GitHub by clicking this [link.](https://www.github.com/${username})\n` +
@@ -107,6 +108,9 @@ function generateMarkdown(data) {
   renderLicenseSection(license) +
   renderQuestionsSection(username, email);
 }
+
+//function call to initalize markdown generation
+generateMarkdown();
 
 //only exporting generateMarkdown function as remaining functions only used by that function to generate the string of code
 module.exports = {

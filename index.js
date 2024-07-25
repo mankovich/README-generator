@@ -85,7 +85,8 @@ function getUserInfo() {
         }
     ])
     .then(data => {
-        generateMarkdown(data)
+        writeToFile(data);
+        console.log(data)
     })
 }
 
