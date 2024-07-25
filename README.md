@@ -9,7 +9,7 @@ This is a command-line application that dynamically generates a professional REA
 
 
 
-This sample README.md file was generated using the application:
+The following is a screenshot of the [sample README.md file](./submission-files/sample-README.md), which was generated using the application:
 
 
 
@@ -17,7 +17,7 @@ This sample README.md file was generated using the application:
 
 
 
-In addition, a video walking through the application's use and generation of that sample README may be accessed [here.](./submission-files/README-generator_walkthrough.mp4)
+In addition, a video walking through the application's use and generation of that sample README may be accessed [here.](https://drive.google.com/file/d/1s7Z4R2pcwz3E0xDpTDzKK89U0bnwQSIj/view?usp=sharing)
 
 
 
