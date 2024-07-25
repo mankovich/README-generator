@@ -1,90 +1,85 @@
-const data = require('C:/Users/jpman/code/README-generator/index.js')
-
-// TODO: Create a function that returns a license badge based on which license is passed in
-// If there is no license, return an empty string
+// Return a license badge based on the passed-in license chosen by the user; if no license chosen, an empty string is returned
 function renderLicenseBadge(license) {
-  // const {license} = data
   
   switch (license) {
     case 'MIT': 
-      return licenseBadge = '[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)]';
+      return '[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)]';
     case 'BSD 3-Clause':
-      return licenseBadge = '[![License](https://img.shields.io/badge/License-BSD_3--Clause-grey.svg)]';
+      return '[![License](https://img.shields.io/badge/License-BSD_3--Clause-grey.svg)]';
     case 'GNU GPL v3':
-      return licenseBadge = '[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)]';
+      return '[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)]';
     case 'CC0':
-      return licenseBadge = '[![License: CC0-1.0](https://licensebuttons.net/l/zero/1.0/80x15.png)]';
+      return '[![License: CC0-1.0](https://licensebuttons.net/l/zero/1.0/80x15.png)]';
     case 'Apache 2.0':
-      return licenseBadge = '[![License](https://img.shields.io/badge/License-Apache_2.0-purple.svg)]';
+      return '[![License](https://img.shields.io/badge/License-Apache_2.0-purple.svg)]';
     case 'WTFPL':
-      return licenseBadge = '[![License: WTFPL](https://img.shields.io/badge/License-WTFPL-brightgreen.svg)]';
+      return '[![License: WTFPL](https://img.shields.io/badge/License-WTFPL-brightgreen.svg)]';
     case 'No license':
-      return licenseBadge = '';
+      return '';
     default:
-      colors.raindbow(console.log("This shouldn't be possible. What TF did you do? Start over. Sigh"));
+      console.log("This shouldn't be possible. What TF did you do? Start over. Sigh");
       break;
   }
+  renderLicenseSection(license);
 }
 
-// TODO: Create a function that returns the license link
-// If there is no license, return an empty string
+// Return the URL to info on the passed-in license chosen by the user; if no license was chosen, returns an empty string
 function renderLicenseLink(license) {
-  // const {license} = data
 
   switch (license) {
     case 'MIT': 
-      return licenseLink = '(https://opensource.org/licenses/MIT)';
+      return  '(https://opensource.org/licenses/MIT)';
     case 'BSD 3-Clause':
-      return licenseLink = '(https://opensource.org/licenses/BSD-3-Clause)';
+      return '(https://opensource.org/licenses/BSD-3-Clause)';
     case 'GNU GPL v3':
-      return licenseLink = '(https://www.gnu.org/licenses/gpl-3.0)';
+      return  '(https://www.gnu.org/licenses/gpl-3.0)';
     case 'CC0':
-      return licenseLink = '(http://creativecommons.org/publicdomain/zero/1.0/)';
+      return '(http://creativecommons.org/publicdomain/zero/1.0/)';
     case 'Apache 2.0':
-      return licenseLink = '(https://opensource.org/licenses/Apache-2.0)';
+      return  '(https://opensource.org/licenses/Apache-2.0)';
     case 'WTFPL':
-      return licenseLink = '(http://www.wtfpl.net/about/)';
+      return  '(http://www.wtfpl.net/about/)';
     case 'No license':
-      return licenseLink = '';
+      return '';
     default:
-      colors.raindbow(console.log("This shouldn't be possible. What TF did you do? Start over. Sigh"));
+      console.log("This shouldn't be possible. What TF did you do? Start over. Sigh");
       break;
   }
-  // renderLicenseSection = (licenseLink) {};
+
+  renderLicenseSection(license);
 }
 
-// TODO: Create a function that returns the license section of README
-// If there is no license, return an empty string
-function renderLicenseSection(license, licenseBadge, licenseLink) {
-  // const {license} = data
-
-  renderLicenseLink(license, licenseLink);
-  renderLicenseBadge(license, licenseBadge);
-
-  return `\n\n##License\n 
-  **${license}** ${licenseBadge}${licenseLink}`
+// Renders the license section of README; if the user chose no license, returns an empty string
+function renderLicenseSection(license) {
+  if (license === 'No license') {
+    return `\n\n## License\n\n None.`
+  } else {
+    const licenseLink = renderLicenseLink(license);
+    const licenseBadge = renderLicenseBadge(license);
+    return `\n\n## License\n\n **${license}** ${licenseBadge}${licenseLink}`
+  }
 }
 
-function renderTitle(data) {
-  const title = data.title
-
-  return `# ${title}`;
+//create Title in markdown to be called in generateMarkdown()
+function renderTitle(title) {
+    return `# ${title}`;
 }
 
+//create generic Section format to be called for content sections in generateMarkdown()
 function renderSection(sectionTitle, content) {
-  return `\n\n##${sectionTitle}\n${content}`;
+  return `\n\n## ${sectionTitle} \n\n${content}`;
 }
 
+// create Questions Section to be called in generateMarkdown()
 function renderQuestionsSection(username, email) {
-  // const {username, email} = data
-
-  return `\n\n##Questions\n` + 
-  `My GitHub username is ${username}, and you may access my GitHub by clicking this [link.](https://www.github.com/${username})\n` +
+  return `\n\n## Questions\n` + 
+  `My GitHub username is ${username}, and you may access my GitHub profile by clicking this [link.](https://www.github.com/${username})\n\n` +
   `If you have any questions, please send them to me at ${email}.`
 }
 
-function renderTOC(title) {
-  return '\n\n##Table of Contents' + '\n-- ' + title +
+//create Table of Contents section to be called in generateMarkdown()
+function renderTOC() {
+  return `\n\n## Table of Contents` +
   '\n - [Description](#Description)' + 
   '\n - [Installation](#Installation)' +
   '\n - [Usage](#Usage)' +
@@ -96,8 +91,11 @@ function renderTOC(title) {
 
 // generate markdown code for README; compiling outside functions to build full README 
 function generateMarkdown(data) {
-  const {username, email, title, description, installation, usage, license, contributing, tests} = data
+  console.log(data)
   
+  const {username, email, title, description, installation, usage, license, contributing, tests} = data
+ 
+  const readme =
   renderTitle(title) +
   renderTOC(title) +
   renderSection('Description', description) +
@@ -107,12 +105,10 @@ function generateMarkdown(data) {
   renderSection('Tests', tests) +
   renderLicenseSection(license) +
   renderQuestionsSection(username, email);
+  return readme
 }
 
-//function call to initalize markdown generation
-generateMarkdown();
-
-//only exporting generateMarkdown function as remaining functions only used by that function to generate the string of code
+//exporting generateMarkdown function only as remaining functions only used by that function to generate the string of markdown code to be written to the new README.md
 module.exports = {
   generateMarkdown
 };

@@ -16,7 +16,7 @@ const questions = [
     'Tests?'
 ];
 
-/* define array of available license choices */
+//define array of available license choices
 const licenses = [
     'MIT',
     'BSD 3-Clause',
@@ -27,13 +27,12 @@ const licenses = [
     'No license'
 ]
 
-// writing data to README.md ... parameter: data: a string containing all content from generateMarkdown.js
+// write data to new README.md ... data parameter is a string containing all content from generateMarkdown.js
 function writeToFile(data) {
-    fs.writeFile('./markdown/README.md', readmeGen.generateMarkdown(data), (err) =>
-    err ? console.log(err) : console.log(color.neonGreen('\nFind the generated README.md in the markdown folder')))
+    fs.writeFileSync('./markdown/README.md', readmeGen.generateMarkdown(data));
 }
 
-/* inquirer prompt questions for contents of README (I don't know why or how this comment became highlighted, but I can't figure out how to undo it and it's driving me crazy...)*/
+// inquirer prompt questions for contents of README 
 function getUserInfo() {
     inquirer.prompt([
         {
@@ -70,8 +69,7 @@ function getUserInfo() {
             type: 'list',
             message: colors.bgBrightYellow(questions[6]),
             name: 'license',
-            choices: [licenses]
-                /*FIXME:'MIT', 'BSD 3-Clause', 'GNU GPL v3', 'CC0', 'No license'*/
+            choices: licenses
         },
         {
             type: 'input',
@@ -84,16 +82,16 @@ function getUserInfo() {
             name: 'tests'
         }
     ])
-    .then(data => {
+    .then((data) => {
         writeToFile(data);
-        console.log(data)
+    })
+    .catch((err) => {
+        console.log('Failure with:');
+        console.log(err);
     })
 }
 
 // Function call to initialize app
 getUserInfo();
 
-//export getUserInfo() for data to be available to be passed into markdown generating functions
-module.exports = {
-    getUserInfo
-}
+
